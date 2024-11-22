@@ -1,6 +1,6 @@
 {
   "name": "@bablr/language-en-regex-vm-pattern",
-  "version": "0.0.0",
+  "version": "0.7.1",
   "description": "A BABLR language for nonbacktracking JS-style regexes",
   "engines": {
     "node": ">=12.0.0"
@@ -10,9 +10,7 @@
     ".": "./lib/grammar.js",
     "./package.json": "./package.json"
   },
-  "files": [
-    "lib/**/*.js"
-  ],
+  "files": ["lib/**/*.js"],
   "sideEffects": false,
   "scripts": {
     "build": "macrome build",
@@ -42,12 +40,7 @@
     "mocha": "^10.4.0",
     "prettier": "^2.0.5"
   },
-  "keywords": [
-    "bablr-language",
-    "grammar",
-    "english",
-    "regex"
-  ],
+  "keywords": ["bablr-language", "grammar", "english", "regex"],
   "repository": "git@github.com:bablr-lang/language-en-regex-vm-pattern.git",
   "homepage": "https://github.com/bablr-lang/language-en-regex-vm-pattern",
   "author": "Conrad Buck <conartist6@gmail.com>",
