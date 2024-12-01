@@ -1,10 +1,11 @@
 import { buildTag, Context, AgastContext } from 'bablr';
+import { spam } from '@bablr/boot';
 import { dedent } from '@qnighy/dedent';
 import * as language from '@bablr/language-en-regex-vm-pattern';
 import { debugEnhancers } from '@bablr/helpers/enhancers';
 import { expect } from 'expect';
 import { printPrettyCSTML } from '@bablr/helpers/tree';
-import { buildFullyQualifiedSpamMatcher } from '@bablr/agast-vm-helpers';
+import { buildIdentifier, buildString } from '@bablr/agast-vm-helpers';
 
 let enhancers = {};
 
@@ -13,7 +14,7 @@ let enhancers = {};
 const ctx = Context.from(AgastContext.create(), language, enhancers.bablrProduction);
 
 const buildRegexTag = (type) => {
-  const matcher = buildFullyQualifiedSpamMatcher({ hasGap: true }, language.canonicalURL, type);
+  const matcher = spam`<$${buildString(language.canonicalURL)}:${buildIdentifier(type)} />`;
   return buildTag(ctx, matcher, undefined, { enhancers });
 };
 
