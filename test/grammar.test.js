@@ -56,7 +56,7 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$: <*+Character '2' />
+              elements[]+$: <*Character '2' />
             </>
             separatorTokens[]: []
             closeToken: <*Punctuator '/' balancer />
@@ -76,8 +76,8 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$: <*+Character '2' />
-              elements[]$: <*+Character '1' />
+              elements[]+$: <*Character '2' />
+              elements[]+$: <*Character '1' />
             </>
             separatorTokens[]: []
             closeToken: <*Punctuator '/' balancer />
@@ -97,14 +97,14 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$: <*+Character '1' />
+              elements[]+$: <*Character '1' />
             </>
             separatorTokens[]: []
             separatorTokens[]: <*Punctuator '|' />
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$: <*+Character '2' />
+              elements[]+$: <*Character '2' />
             </>
             closeToken: <*Punctuator '/' balancer />
             flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
@@ -147,12 +147,12 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <+$CharacterClass !negate>
+              elements[]+$:
+              <$CharacterClass !negate>
                 openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
                 negateToken: null
                 elements[]$: []
-                elements[]$: <*+Character '-' />
+                elements[]+$: <*Character '-' />
                 closeToken: <*Punctuator ']' balancer />
               </>
             </>
@@ -174,13 +174,13 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <+$CharacterClass !negate>
+              elements[]+$:
+              <$CharacterClass !negate>
                 openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
                 negateToken: null
                 elements[]$: []
-                elements[]$: <*+Character '-' />
-                elements[]$: <*+Character '-' />
+                elements[]+$: <*Character '-' />
+                elements[]+$: <*Character '-' />
                 closeToken: <*Punctuator ']' balancer />
               </>
             </>
@@ -202,13 +202,13 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <+$CharacterClass !negate>
+              elements[]+$:
+              <$CharacterClass !negate>
                 openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
                 negateToken: null
                 elements[]$: []
-                elements[]$:
-                <+$CharacterClassRange>
+                elements[]+$:
+                <$CharacterClassRange>
                   min$: <*+Character '-' />
                   sigilToken: <*Punctuator '-' />
                   max$: <*+Character '-' />
@@ -281,8 +281,8 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <+$WordCharacterSet negate>
+              elements[]+$:
+              <$WordCharacterSet negate>
                 escapeToken: <*Punctuator '${'\\\\'}' />
                 value: <*Keyword 'W' />
               </>
@@ -305,8 +305,8 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <+$Gap>
+              elements[]+$:
+              <$Gap>
                 escapeToken: <*Punctuator '${'\\\\'}' />
                 value: <*Keyword 'g' />
               </>
@@ -329,9 +329,10 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <*+Character>
-                <@EscapeSequence cooked='<'>
+              elements[]+$:
+              <*Character>
+                @:
+                <EscapeSequence cooked='<'>
                   escape: <*Punctuator '${'\\\\'}' openSpan='Escape' />
                   code: <*Keyword '<' closeSpan='Escape' />
                 </>
