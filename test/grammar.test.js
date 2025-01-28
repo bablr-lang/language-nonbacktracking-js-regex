@@ -5,7 +5,7 @@ import * as language from '@bablr/language-en-regex-vm-pattern';
 import { debugEnhancers } from '@bablr/helpers/enhancers';
 import { expect } from 'expect';
 import { printPrettyCSTML } from '@bablr/helpers/tree';
-import { buildIdentifier, buildString } from '@bablr/agast-vm-helpers';
+import { buildIdentifier, buildString } from '@bablr/helpers/builders';
 
 let enhancers = {};
 
@@ -28,30 +28,30 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
 
     it('`//`', () => {
       expect(print(regex`//`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/2/`', () => {
       expect(print(regex`/2/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
@@ -59,19 +59,19 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
               elements[]+$: <*Character '2' />
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/21/`', () => {
       expect(print(regex`/21/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
@@ -80,19 +80,19 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
               elements[]+$: <*Character '1' />
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/1|2/`', () => {
       expect(print(regex`/1|2/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
@@ -106,139 +106,139 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
               elements[]$: []
               elements[]+$: <*Character '2' />
             </>
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/2+/`', () => {
       expect(print(regex`/2+/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]$:
-              <$Quantifier min=1 max=+Infinity>
-                element$: <*+Character '2' />
+              elements[]+$:
+              <$Quantifier { min: 1, max: +Infinity }>
+                element+$: <*Character '2' />
                 sigilToken: <*Keyword '+' />
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/[-]/`', () => {
       expect(print(regex`/[-]/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
               elements[]+$:
-              <$CharacterClass !negate>
-                openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
+              <$CharacterClass { negate: false }>
+                openToken: <*Punctuator '[' { balancedSpan: 'CharacterClass', balanced: ']' } />
                 negateToken: null
                 elements[]$: []
                 elements[]+$: <*Character '-' />
-                closeToken: <*Punctuator ']' balancer />
+                closeToken: <*Punctuator ']' { balancer: true } />
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/[--]/`', () => {
       expect(print(regex`/[--]/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
               elements[]+$:
-              <$CharacterClass !negate>
-                openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
+              <$CharacterClass { negate: false }>
+                openToken: <*Punctuator '[' { balancedSpan: 'CharacterClass', balanced: ']' } />
                 negateToken: null
                 elements[]$: []
                 elements[]+$: <*Character '-' />
                 elements[]+$: <*Character '-' />
-                closeToken: <*Punctuator ']' balancer />
+                closeToken: <*Punctuator ']' { balancer: true } />
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/[---]/`', () => {
       expect(print(regex`/[---]/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
               elements[]+$:
-              <$CharacterClass !negate>
-                openToken: <*Punctuator '[' balancedSpan='CharacterClass' balanced=']' />
+              <$CharacterClass { negate: false }>
+                openToken: <*Punctuator '[' { balancedSpan: 'CharacterClass', balanced: ']' } />
                 negateToken: null
                 elements[]$: []
                 elements[]+$:
                 <$CharacterClassRange>
-                  min$: <*+Character '-' />
+                  min+$: <*Character '-' />
                   sigilToken: <*Punctuator '-' />
-                  max$: <*+Character '-' />
+                  max+$: <*Character '-' />
                 </>
-                closeToken: <*Punctuator ']' balancer />
+                closeToken: <*Punctuator ']' { balancer: true } />
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`//i`', () => {
       expect(print(regex`//i`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
+            closeToken: <*Punctuator '/' { balancer: true } />
             flags$:
-            <$Flags !global ignoreCase !multiline !dotAll !unicode !sticky>
+            <$Flags { global: false, ignoreCase: true, multiline: false, dotAll: false, unicode: false, sticky: false }>
               tokens[]: []
               tokens[]: <*Keyword 'i' />
             </>
@@ -248,20 +248,20 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
 
     it('`//mi`', () => {
       expect(print(regex`//mi`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
+            closeToken: <*Punctuator '/' { balancer: true } />
             flags$:
-            <$Flags !global ignoreCase multiline !dotAll !unicode !sticky>
+            <$Flags { global: false, ignoreCase: true, multiline: true, dotAll: false, unicode: false, sticky: false }>
               tokens[]: []
               tokens[]: <*Keyword 'm' />
               tokens[]: <*Keyword 'i' />
@@ -272,35 +272,35 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
 
     it('`/\\W/`', () => {
       expect(print(regex`/\W/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
               elements[]+$:
-              <$WordCharacterSet negate>
+              <$WordCharacterSet { negate: true }>
                 escapeToken: <*Punctuator '${'\\\\'}' />
                 value: <*Keyword 'W' />
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/\\g/`', () => {
       expect(print(regex`/\g/`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
@@ -312,19 +312,19 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
 
     it('`/\\</`', () => {
       expect(print(regex`/\</`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
@@ -332,15 +332,15 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
               elements[]+$:
               <*Character>
                 @:
-                <EscapeSequence cooked='<'>
-                  escape: <*Punctuator '${'\\\\'}' openSpan='Escape' />
-                  code: <*Keyword '<' closeSpan='Escape' />
+                <EscapeSequence { cooked: '<' }>
+                  escape: <*Punctuator '${'\\\\'}' { openSpan: 'Escape' } />
+                  code: <*Keyword '<' { closeSpan: 'Escape' } />
                 </>
               </>
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
-            flags$: <$Flags !global !ignoreCase !multiline !dotAll !unicode !sticky />
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
     });
@@ -348,20 +348,20 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
     it('`//<gåp>`', () => {
       const flags = buildRegexTag('Flags')`i`;
       expect(print(regex`//${flags}`)).toEqual(dedent`\
-        <!0:cstml bablr-language='https://bablr.org/languages/core/en/bablr-regex-pattern'>
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
         <$>
           .:
           <$Pattern>
-            openToken: <*Punctuator '/' balanced='/' balancedSpan='Pattern' />
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
             alternatives[]$: []
             alternatives[]$:
             <$Alternative>
               elements[]$: []
             </>
             separatorTokens[]: []
-            closeToken: <*Punctuator '/' balancer />
+            closeToken: <*Punctuator '/' { balancer: true } />
             flags$:
-            <$Flags !global ignoreCase !multiline !dotAll !unicode !sticky>
+            <$Flags { global: false, ignoreCase: true, multiline: false, dotAll: false, unicode: false, sticky: false }>
               tokens[]: []
               tokens[]: <*Keyword 'i' />
             </>
