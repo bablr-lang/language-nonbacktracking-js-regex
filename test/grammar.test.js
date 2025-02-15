@@ -123,9 +123,10 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             alternatives[]$:
             <$Alternative>
               elements[]$: []
-              elements[]+$:
+              elements[]+$: <*Character '2' />
+              ^^^
               <$Quantifier { min: 1, max: +Infinity }>
-                element+$: <*Character '2' />
+                element+$: <//>
                 sigilToken: <*Keyword '+' />
               </>
             </>
@@ -207,9 +208,10 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
                 openToken: <*Punctuator '[' { balancedSpan: 'CharacterClass', balanced: ']' } />
                 negateToken: null
                 elements[]$: []
-                elements[]+$:
+                elements[]+$: <*Character '-' />
+                ^^^
                 <$CharacterClassRange>
-                  min+$: <*Character '-' />
+                  min+$: <//>
                   sigilToken: <*Punctuator '-' />
                   max+$: <*Character '-' />
                 </>
@@ -343,6 +345,47 @@ describe('@bablr/language-en-regex-vm-pattern', () => {
             flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
           </>
         </>\n`);
+    });
+
+    it('`/[ \\t]+/`', () => {
+      expect(print(regex`/[ \t]+/`)).toEqual(dedent`\
+        <!0:cstml { bablrLanguage: 'https://bablr.org/languages/core/en/bablr-regex-pattern' }>
+        <$>
+          .:
+          <$Pattern>
+            openToken: <*Punctuator '/' { balanced: '/', balancedSpan: 'Pattern' } />
+            alternatives[]$: []
+            alternatives[]$:
+            <$Alternative>
+              elements[]$: []
+              elements[]+$:
+              <$CharacterClass { negate: false }>
+                openToken: <*Punctuator '[' { balancedSpan: 'CharacterClass', balanced: ']' } />
+                negateToken: null
+                elements[]$: []
+                elements[]+$: <*Character ' ' />
+                elements[]+$:
+                <*Character>
+                  @:
+                  <EscapeSequence { cooked: '${'\\t'}' }>
+                    escape: <*Punctuator '${'\\\\'}' { openSpan: 'Escape' } />
+                    code: <*Keyword 't' { closeSpan: 'Escape' } />
+                  </>
+                </>
+                closeToken: <*Punctuator ']' { balancer: true } />
+              </>
+              ^^^
+              <$Quantifier { min: 1, max: +Infinity }>
+                element+$: <//>
+                sigilToken: <*Keyword '+' />
+              </>
+            </>
+            separatorTokens[]: []
+            closeToken: <*Punctuator '/' { balancer: true } />
+            flags$: <$Flags { global: false, ignoreCase: false, multiline: false, dotAll: false, unicode: false, sticky: false } />
+          </>
+        </>
+      `);
     });
 
     it('`//<gåp>`', () => {
