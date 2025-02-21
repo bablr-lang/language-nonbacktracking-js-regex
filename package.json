@@ -1,6 +1,6 @@
 {
   "name": "@bablr/language-en-regex-vm-pattern",
-  "version": "0.0.0",
+  "version": "0.8.0",
   "description": "A BABLR language for nonbacktracking JS-style regexes",
   "engines": {
     "node": ">=12.0.0"
